@@ -1,0 +1,33 @@
+From 6b18e4693c0806b6c45915f5af089f5ce5782344 Mon Sep 17 00:00:00 2001
+From: Alison Chaiken <alison@she-devel.com>
+Date: Sun, 19 Nov 2017 12:47:13 -0800
+Subject: [PATCH] change default bootcmd for sandbox
+Organization: Mentor Embedded Software
+
+Signed-off-by: Alison Chaiken <alison@she-devel.com>
+---
+ include/config_distro_bootcmd.h | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/include/config_distro_bootcmd.h b/include/config_distro_bootcmd.h
+index e0d0034ed3..6d0046fb59 100644
+--- a/include/config_distro_bootcmd.h
++++ b/include/config_distro_bootcmd.h
+@@ -388,7 +388,13 @@
+ 	"distro_bootcmd=" BOOTENV_SET_SCSI_NEED_INIT                      \
+ 		"for target in ${boot_targets}; do "                      \
+ 			"run bootcmd_${target}; "                         \
+-		"done\0"
++		"done\0"  \
++	"custom_bootcmd=host bind 0 disk.raw;"	\
++	"setenv bootfile bzImage;"		\
++	"load host 0:1 ${kernel_addr};"		\
++	"bootz ${kernel_addr}\0"			\
++						\
++	"bootcmd=run custom_bootcmd\0"
+ 
+ #ifndef CONFIG_BOOTCOMMAND
+ #define CONFIG_BOOTCOMMAND "run distro_bootcmd"
+-- 
+2.15.0
+
