@@ -1,0 +1,30 @@
+linux.conf.au 2018 demo files
+Alison Chaiken, alison@she-devel.com
+
+This repository collects scripts and patches that were created for the
+"Linux: the First Second" talk at linux.conf.au 2018:
+
+https://rego.linux.conf.au/schedule/presentation/16/
+
+What's in the subdirectories:
+
+0. custom_initrd: a script to unpack the initrd in /boot that matches
+the running kernel, add a specified file to it in a specified
+subdirectory, and then repack into a new initrd.   The motivation for the
+script is that the instructions regarding the use of cpio for initrd's
+the kernel source in Documentation/acpi/initrd_table_override.txt and
+Documentation/filesystems/ramfs-rootfs-initramfs.txt no longer work
+as of kernel 4.13 and Debian Buster.
+
+1. starting_ELF: These scripts download the GLIBC and coreutils
+source, compile coreutils with symbols, and create symlinks to help
+GDB find the GLIBC symbols.   GDB is started in such a way that the
+user can easily read the assembly constructor startup code in start.S
+that is part of the ELF interpreter.
+
+2. u-boot_sandbox: make_test_disk.sh creates a toy block 'device' for
+u-boot's sandbox to read.  The tiny patches to the u-boot code configure
+the sandbox image to read the kernel and device-tree from the block
+device and try (obviously without success) to boot them on x86_64.
+
+

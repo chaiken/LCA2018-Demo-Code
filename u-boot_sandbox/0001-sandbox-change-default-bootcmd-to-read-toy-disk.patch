@@ -1,33 +1,37 @@
-From 6b18e4693c0806b6c45915f5af089f5ce5782344 Mon Sep 17 00:00:00 2001
+From 9ee27ab3bc3454b30e4059452e030c6b969596e8 Mon Sep 17 00:00:00 2001
 From: Alison Chaiken <alison@she-devel.com>
 Date: Sun, 19 Nov 2017 12:47:13 -0800
-Subject: [PATCH] change default bootcmd for sandbox
+Subject: [PATCH 1/2] sandbox: change default bootcmd to read toy disk
 Organization: Mentor Embedded Software
+
+Change the default bootcmd to read the bzImage from the block
+device created by make_test_disk.sh.
 
 Signed-off-by: Alison Chaiken <alison@she-devel.com>
 ---
- include/config_distro_bootcmd.h | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ include/config_distro_bootcmd.h | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/include/config_distro_bootcmd.h b/include/config_distro_bootcmd.h
-index e0d0034ed3..6d0046fb59 100644
+index 5c469a23fa..5e0f85040a 100644
 --- a/include/config_distro_bootcmd.h
 +++ b/include/config_distro_bootcmd.h
-@@ -388,7 +388,13 @@
+@@ -392,7 +392,14 @@
  	"distro_bootcmd=" BOOTENV_SET_SCSI_NEED_INIT                      \
  		"for target in ${boot_targets}; do "                      \
  			"run bootcmd_${target}; "                         \
 -		"done\0"
 +		"done\0"  \
-+	"custom_bootcmd=host bind 0 disk.raw;"	\
++	"custom_bootcmd=host bind 0 test.raw;"	\
 +	"setenv bootfile bzImage;"		\
-+	"load host 0:1 ${kernel_addr};"		\
-+	"bootz ${kernel_addr}\0"			\
++	"load host 0:1 ${kernel_addr_r} ${bootfile};"		\
++	"load host 0:1 ${fdt_addr_r} u-boot.dtb;"		\
++	"bootz ${kernel_addr_r} - ${fdt_addr_r}\0"			\
 +						\
 +	"bootcmd=run custom_bootcmd\0"
  
  #ifndef CONFIG_BOOTCOMMAND
  #define CONFIG_BOOTCOMMAND "run distro_bootcmd"
 -- 
-2.15.0
+2.15.1
 

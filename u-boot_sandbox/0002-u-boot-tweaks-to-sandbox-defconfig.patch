@@ -1,0 +1,52 @@
+From ed5fed6a389451389558c70d099be353b6162ea0 Mon Sep 17 00:00:00 2001
+From: Alison Chaiken <alison@she-devel.com>
+Date: Sun, 19 Nov 2017 15:00:56 -0800
+Subject: [PATCH 2/2] u-boot: tweaks to sandbox defconfig
+Organization: Mentor Embedded Software
+
+Change the sandbox defconfig so that it can read a bzImage.
+
+Signed-off-by: Alison Chaiken <alison@she-devel.com>
+---
+ configs/sandbox_defconfig | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/configs/sandbox_defconfig b/configs/sandbox_defconfig
+index 7efb4ebf11..e5e272e5f1 100644
+--- a/configs/sandbox_defconfig
++++ b/configs/sandbox_defconfig
+@@ -1,10 +1,11 @@
+ CONFIG_SYS_MALLOC_F_LEN=0x2000
+ CONFIG_DEFAULT_DEVICE_TREE="sandbox"
++# CONFIG_CC_OPTIMIZE_FOR_SIZE is not set
+ CONFIG_DISTRO_DEFAULTS=y
++CONFIG_PHYS_64BIT=y
+ CONFIG_ANDROID_BOOT_IMAGE=y
+ CONFIG_FIT=y
+-CONFIG_FIT_SIGNATURE=y
+-CONFIG_FIT_VERBOSE=y
++CONFIG_FIT_BEST_MATCH=y
+ CONFIG_BOOTSTAGE=y
+ CONFIG_BOOTSTAGE_REPORT=y
+ CONFIG_BOOTSTAGE_FDT=y
+@@ -69,8 +70,8 @@ CONFIG_CMD_MTDPARTS=y
+ CONFIG_CMD_LOG=y
+ CONFIG_MAC_PARTITION=y
+ CONFIG_AMIGA_PARTITION=y
++CONFIG_PARTITION_TYPE_GUID=y
+ CONFIG_OF_CONTROL=y
+-CONFIG_OF_LIVE=y
+ CONFIG_OF_HOSTFILE=y
+ CONFIG_NETCONSOLE=y
+ CONFIG_REGMAP=y
+@@ -188,6 +189,7 @@ CONFIG_WDT_SANDBOX=y
+ CONFIG_FS_CBFS=y
+ CONFIG_FS_CRAMFS=y
+ CONFIG_CMD_DHRYSTONE=y
++CONFIG_RSA=y
+ CONFIG_TPM=y
+ CONFIG_LZ4=y
+ CONFIG_ERRNO_STR=y
+-- 
+2.15.1
+
