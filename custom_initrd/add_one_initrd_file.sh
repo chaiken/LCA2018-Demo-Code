@@ -1,4 +1,10 @@
 #!/bin/bash
+#
+# Alison Chaiken
+# alison@she-devel.com
+#
+# The program should be run from the kernel top-level source directory.
+#
 set -u
 set -e
 
