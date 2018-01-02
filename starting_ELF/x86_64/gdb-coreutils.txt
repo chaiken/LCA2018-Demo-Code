@@ -1,6 +1,11 @@
 # GDB commands to examine the start-up of an ELF binary with glibc.
+#
+# Alison Chaiken
+# alison@she-devel.com
+#
 # Inspired by https://0xax.gitbooks.io/linux-insides/content/Misc/program_startup.html,
 # which is a bit out-of-date.
+
 run
 info functions
 b _init

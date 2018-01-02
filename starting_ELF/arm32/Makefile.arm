@@ -1,0 +1,24 @@
+# Makefile for unstripped ARM 32-bit binary
+# Alison Chaiken
+# alison@she-devel.com
+
+# Get Linaro toolchain and sysroot from 
+# https://releases.linaro.org/components/toolchain/binaries/latest-5/arm-linux-gnueabihf/
+# Then add gcc-linaro-7.1.1-2017.08-x86_64_arm-linux-gnueabihf/bin to $PATH.
+
+TLD = /usr/local/lib
+CC = arm-linux-gnueabihf-gcc
+LD = arm-linux-gnueabihf-ld
+SYSR = ${TLD}/sysroot-glibc-linaro-2.25-2017.08-arm-linux-gnueabihf
+CFLAGS = -I${SYSR}/usr/include -ggdb -Wall -g -O0 -fno-inline -mfpu=neon -mfloat-abi=hard
+LDFLAGS = -L${SYSR}/lib/ -Wl,-rpath,${SYSR}/lib
+
+%:%.o 
+	${LD} -o $@ ${LDFLAGS} $^
+
+%.o:%.c
+	${CC} ${CFLAGS} -c -o $@ $<
+
+.PHONY : clean
+clean:
+	rm -f *.o $(TARGETS)

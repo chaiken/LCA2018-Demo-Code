@@ -1,5 +1,11 @@
 #!/bin/bash
+# Download and compile unstripped coreutils.
+# Download glibc and symlink it into the source directory.
+# Then start GDB and see what's in it!
 #
+# Alison Chaiken
+# alison@she-devel.com
+
 set -u
 set -e
 
@@ -23,6 +29,8 @@ else
   echo "Found GDB commands file."
 fi
 
+# Or choose your favorite!
+readonly BINARY=date
 readonly TESTDIR=./coreutils
 mkdir "$TESTDIR"
 
@@ -51,4 +59,4 @@ make -s
 # Run coreutils under GDB.
 ln -s "$(readlink -f ../"$GLIBCDIR"/sysdeps)" ../sysdeps
 ln -s "$(readlink -f ../"$GLIBCDIR"/csu)" ../csu
-gdb --command="$GDBFILE" src/date
+gdb --command="$GDBFILE" src/"$BINARY"
