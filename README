@@ -16,11 +16,17 @@ the kernel source in Documentation/acpi/initrd_table_override.txt and
 Documentation/filesystems/ramfs-rootfs-initramfs.txt no longer work
 as of kernel 4.13 and Debian Buster.
 
-1. starting_ELF: These scripts download the GLIBC and coreutils
-source, compile coreutils with symbols, and create symlinks to help
-GDB find the GLIBC symbols.   GDB is started in such a way that the
-user can easily read the assembly constructor startup code in start.S
-that is part of the ELF interpreter.
+1. starting_ELF:
+-- For x86_64, these scripts download the GLIBC and coreutils
+   source, compile coreutils with symbols, and create symlinks to help
+   GDB find the GLIBC symbols.   GDB is started in such a way that the
+   user can easily read the assembly constructor startup code in start.S
+   that is part of the ELF interpreter.
+
+-- For ARM, provide an explanation of how to use the Linaro toolchain
+   and sysroot to cross-compile a random C file and inspect its
+   symbols with cross-GDB.  Similar symlinking into the GLIBC source
+   is needed as with x86_64.
 
 2. u-boot_sandbox: make_test_disk.sh creates a toy block 'device' for
 u-boot's sandbox to read.  The tiny patches to the u-boot code configure
