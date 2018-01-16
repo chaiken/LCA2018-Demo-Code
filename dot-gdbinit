@@ -1,0 +1,28 @@
+#https://stackoverflow.com/questions/4355978/get-rid-of-quit-anyway-prompt-using-gdb-just-kill-the-process-and-quit
+define hook-quit
+    set confirm off
+end
+
+add-auto-load-safe-path /
+
+# Peer into glibc; requires symlinks to ../sysdeps and ../csu that
+# point into glibc source directories of the same name.
+set backtrace past-main on
+set backtrace past-entry on
+
+#from Chris Hallinan's _Embedded Linux Primer_
+set history save on
+set history filename /home/alison/.gdb_history
+set output-radix 16
+set remotetimeout 30
+#set debug remote 1
+
+define connect
+#  target remote 192.168.1.101 /dev/ttyUSB0
+  target remote /dev/ttyUSB0
+#  b sys_sync
+#  b panic
+end
+
+
+
